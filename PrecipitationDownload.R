@@ -10,6 +10,6 @@ for (urlnr in 1:length(urls)) {
 
   zipfilename <- paste0(names(urls)[urlnr], ".zip")
 
-  download.file(url, zipfilename, mode = "wb")
+  download.file(urls[urlnr], zipfilename, mode = "wb")
 
 } 

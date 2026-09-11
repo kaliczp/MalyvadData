@@ -1,13 +1,6 @@
-urls <- c(
-    "https://odp.met.hu/climate/observations_hungary/daily_rain/historical/HABP_1RD_67203_20020101_20251231_hist.zip",
-    "https://odp.met.hu/climate/observations_hungary/daily_rain/historical/HABP_1RD_66523_20210101_20251231_hist.zip"
-)
+zipfiles <- dir(patt="zip")
 
-for (url in urls) {
-
-  zipfile <- tempfile(fileext = ".zip")
-
-  download.file(url, zipfile, mode = "wb")
+for (zipfile in zipfiles) {
 
   csvfile <- unzip(zipfile, list = TRUE)$Name
 

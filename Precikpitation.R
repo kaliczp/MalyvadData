@@ -33,3 +33,11 @@ for (zipfile in zipfiles) {
 
 ## Adathiány kezelése
 P67113.xts[P67113.xts < -990] <- NA
+
+AllPrec.xts <- merge(P66522.xts, P66523.xts, P67113.xts, P67203.xts, P67207.xts)
+
+AllPrec.df <- data.frame(
+    time = index(AllPrec.xts),
+    coredata(AllPrec.xts)
+)
+write.csv2(AllPrec.df, "KörnyezőÁllomások.csv", na = "", row.names = FALSE)

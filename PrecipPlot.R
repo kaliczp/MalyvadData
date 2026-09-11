@@ -8,14 +8,14 @@ for(PrecipObject in PrecipObjects) {
              xlab = "", ylab = "Csapadék [mm/nap]",
              ylim = c(0,100)
              )
-    ## Napi öt max
-    MaxHelye <- order(as.numeric(actual.xts), decreasing = TRUE, na.last = NA)[1:5]
+    ## Napi húsz max
+    MaxHelye <- order(as.numeric(actual.xts), decreasing = TRUE, na.last = NA)[1:20]
     ## Az öt max kiválogatása
-    Top5 <- data.frame(
+    Top20 <- data.frame(
         time = index(actual.xts)[MaxHelye],
         value = as.numeric(actual.xts)[MaxHelye]
     )
-    text(Top5$time, Top5$value, labels = Top5$value, adj = 1)
+    text(Top20$time, Top20$value, labels = Top20$value, adj = 1)
     ## Kis ábra éves összegek
     par(fig = c(0.5, 0.95, 0.65, 0.87), new = TRUE, mar = c(3.1, 4.1,0,0))
     PrecipYearly <- apply.yearly(actual.xts, sum)

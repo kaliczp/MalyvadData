@@ -13,3 +13,6 @@ for (zipfile in zipfiles) {
     ## Idősor
     assign(finalobjectname, xts(adat$r ,as.Date(as.character(adat$Time), format = "%Y%m%d")))
 }
+
+## Adathiány kezelése
+P67113.xts[P67113.xts < -990] <- NA

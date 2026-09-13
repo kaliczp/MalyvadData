@@ -1,0 +1,10 @@
+urls <- c(Sopron = "https://odp.met.hu/climate/homogenized_data/station_data_series/from_1870/precipitation_sum/r_h_Sopron_18702025.csv.zip")
+zipfilename <- paste0(names(urls)[urlnr], ".zip")
+download.file(urls[urlnr], zipfilename, mode = "wb")
+csvfile <- unzip(zipfilename, list = TRUE)$Name
+unzip(zipfilename, exdir = tempdir())
+adat <- read.table(file.path(tempdir(), csvfile), sep = ";", head = TRUE)
+finalobjectname <- paste0("P", adat[1, "StationNumber"], ".xts")
+assign(finalobjectname, xts(adat$r ,as.Date(as.character(adat$Time), format = "%Y%m%d")))
+annual_hydro <- HydYearUntilNow(P.xts, "10-31")
+barplot(zoo(annual_hydro$V1, annual_hydro[,"HY"]), main = "Sopron", col = "lightblue", xaxs = "i")

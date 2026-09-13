@@ -53,5 +53,7 @@ for(actCol in colnames(annual_hydro[-1])) {
             xlab = "", ylab = "", axes = FALSE,
             add = TRUE)
     axis(2, as.numeric(tail(Actual,1)), tck = 1, lab = "")
+    legend("topright", legend = c("Téli félév", "Nyári félév"), col = c("lightblue", "orange"),
+           lwd = 3)
 }
 dev.off()

@@ -1,40 +1,27 @@
-### Hidrológiai évre
-## Év kinyerése
-hydro_year <- as.numeric(format(index(AllPrec.xts), "%Y"))
-## Plusz egy november–decemberre
-hydro_year[format(index(AllPrec.xts), "%m") == "11" |
-           format(index(AllPrec.xts), "%m") == "12"] <-
-  hydro_year[format(index(AllPrec.xts), "%m") == "11" |
-             format(index(AllPrec.xts), "%m") == "12"] + 1
-
-annual_hydro <- aggregate.data.frame(
-  x = AllPrec.xts,
-  list(HY = hydro_year),
-  sum,
-  na.rm = TRUE
-)
-
-### Hidrológiai évre adott időig
+### Összeg hidrológiai évre beállítható időig
 HydYearUntilNow <- function(x, untilday = format(Sys.Date(), "%m-%d")) {
     MonthDay <- format(index(x), "%m-%d")
-    x_noSepOct <- x[MonthDay <= untilday | MonthDay >= "11-01"]
+    x_noRest <- x[MonthDay <= untilday | MonthDay >= "11-01"]
 ### A hidrológiai évek lehatárolása
-    ## Az untilday-ig csonkolt idősor indexe
-    hydro_year <- as.numeric(format(index(x_noSepOct), "%Y"))
+    ## Az untilday-ig csonkolt idősor indexe, év kinyerése
+    hydro_year <- as.numeric(format(index(x_noRest), "%Y"))
     ## Plusz egy év az előző év november–decemberre
-hydro_year[format(index(x_noSepOct), "%m") == "11" |
-           format(index(x_noSepOct), "%m") == "12"] <-
-  hydro_year[format(index(x_noSepOct), "%m") == "11" |
-             format(index(x_noSepOct), "%m") == "12"] + 1
+    hydro_year[format(index(x_noRest), "%m") == "11" |
+               format(index(x_noRest), "%m") == "12"] <-
+        hydro_year[format(index(x_noRest), "%m") == "11" |
+                   format(index(x_noRest), "%m") == "12"] + 1
     ## A hidrológiai évre aggregált adatsor
     aggregate.data.frame(
-        x = x_noSepOct,
+        x = x_noRest,
         list(HY = hydro_year),
         sum,
         na.rm = TRUE
     )
 }
 
+### Hidrológiai évre
+## Teljes hidrológiai évre
+annual_hydro <- HydYearUntilNow(AllPrec.xts["2014/",c("P66522.xts", "P67113.xts", "P67207.xts")], "10-31")
 ## Aug 31-ig a haviakkal
 annual_hydro <- HydYearUntilNow(AllPrec.xts, "08-31")
 ## Máig a folyamatosakkal

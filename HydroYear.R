@@ -14,23 +14,31 @@ annual_hydro <- aggregate.data.frame(
   na.rm = TRUE
 )
 
-### Hidrológiai évre augusztusig
-MonthDay <- format(index(AllPrec.xts), "%m-%d")
-x_noSepOct <- AllPrec.xts[MonthDay <= "08-31" | MonthDay >= "11-01"]
-
-hydro_year <- as.numeric(format(index(x_noSepOct), "%Y"))
-## Plusz egy november–decemberre
+### Hidrológiai évre adott időig
+HydYearUntilNow <- function(x, untilday = format(Sys.Date(), "%m-%d")) {
+    MonthDay <- format(index(x), "%m-%d")
+    x_noSepOct <- x[MonthDay <= untilday | MonthDay >= "11-01"]
+### A hidrológiai évek lehatárolása
+    ## Az untilday-ig csonkolt idősor indexe
+    hydro_year <- as.numeric(format(index(x_noSepOct), "%Y"))
+    ## Plusz egy év az előző év november–decemberre
 hydro_year[format(index(x_noSepOct), "%m") == "11" |
            format(index(x_noSepOct), "%m") == "12"] <-
   hydro_year[format(index(x_noSepOct), "%m") == "11" |
              format(index(x_noSepOct), "%m") == "12"] + 1
+    ## A hidrológiai évre aggregált adatsor
+    aggregate.data.frame(
+        x = x_noSepOct,
+        list(HY = hydro_year),
+        sum,
+        na.rm = TRUE
+    )
+}
 
-annual_hydro <- aggregate.data.frame(
-  x = x_noSepOct,
-  list(HY = hydro_year),
-  sum,
-  na.rm = TRUE
-)
+## Aug 31-ig a haviakkal
+annual_hydro <- HydYearUntilNow(AllPrec.xts, "08-31")
+## Máig a folyamatosakkal
+annual_hydro <- HydYearUntilNow(AllPrec.xts["2014/",c("P66522.xts", "P67113.xts", "P67207.xts")])
 
 pdf(width = 14)
 for(actCol in colnames(annual_hydro[-1])) {

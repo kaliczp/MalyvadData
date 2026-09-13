@@ -1,7 +1,11 @@
 ### Összeg hidrológiai évre beállítható időig
 HydYearUntilNow <- function(x, untilday = format(Sys.Date(), "%m-%d")) {
     MonthDay <- format(index(x), "%m-%d")
-    x_noRest <- x[MonthDay <= untilday | MonthDay >= "11-01"]
+    if(untilday == "10-31" | untilday == NULL) {
+        x_noRest = x
+    } else {
+        x_noRest <- x[MonthDay <= untilday | MonthDay >= "11-01"]
+    }
 ### A hidrológiai évek lehatárolása
     ## Az untilday-ig csonkolt idősor indexe, év kinyerése
     hydro_year <- as.numeric(format(index(x_noRest), "%Y"))

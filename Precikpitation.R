@@ -13,7 +13,11 @@ for (zipfile in zipfiles) {
     ## Végső objektumnév legyártása a zipfájl nevéből
     finalobjectname <- paste0("P", adat[1, "StationNumber"], ".xts")
     ## Idősor
-    assign(finalobjectname, xts(adat$r ,as.Date(as.character(adat$Time), format = "%Y%m%d")))
+    if(any(names(adat) == "t")) {
+        assign(finalobjectname, xts(adat[,c("rau","t")] ,as.Date(as.character(adat$Time), format = "%Y%m%d")))
+    } else {
+        assign(finalobjectname, xts(adat$r ,as.Date(as.character(adat$Time), format = "%Y%m%d")))
+    }
 }
 
 zipfiles <- allzipfiles[IsActual]
@@ -27,7 +31,11 @@ for (zipfile in zipfiles) {
     ## Végső objektumnév legyártása a zipfájl nevéből
     finalobjectname <- paste0("P", adat[1, "StationNumber"], ".xts")
     ## Idősor
-    assign(finalobjectname, c(get(finalobjectname), xts(adat$r ,as.Date(as.character(adat$Time), format = "%Y%m%d"))))
+    if(any(names(adat) == "t")) {
+        assign(finalobjectname, c(get(finalobjectname), xts(adat[,c("rau","t")] ,as.Date(as.character(adat$Time), format = "%Y%m%d"))))
+    } else {
+        assign(finalobjectname, c(get(finalobjectname), xts(adat$r ,as.Date(as.character(adat$Time), format = "%Y%m%d"))))
+    }
 }
 
 

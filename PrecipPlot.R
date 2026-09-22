@@ -1,8 +1,8 @@
 PrecipObjectsAkt <- ls(patt = "P[0-9]")
 PrecipObjects <- data.frame(
-    StationData = c("P66522.xts", "P66523.xts", "P67113.xts", "P67203.xts", "P67207.xts"
+    StationData = c("P66522.xts", "P66523.xts", "P66613.xts", "P67113.xts", "P67203.xts", "P67207.xts"
                     ),
-    StationName = c("Békéscsaba repülőtér", "Békéscsaba VI. kerület", "Elek", "Gyulavári", "Gyula Máriafalva")
+    StationName = c("Békéscsaba repülőtér", "Békéscsaba VI. kerület", "Sarkad Malomfok", "Elek", "Gyulavári", "Gyula Máriafalva")
 )
 
 

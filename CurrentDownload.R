@@ -3,6 +3,7 @@ urls <- c(
     P66523akt = "https://odp.met.hu/climate/observations_hungary/daily_rain/recent/HABP_1RD_66523_akt.zip",
     P67207akt = "https://odp.met.hu/climate/observations_hungary/daily/recent/HABP_1D_67207_akt.zip",
     P67113akt = "https://odp.met.hu/climate/observations_hungary/daily/recent/HABP_1D_67113_akt.zip",
+    P66613akt = "https://odp.met.hu/climate/observations_hungary/daily/recent/HABP_1D_66613_akt.zip",
     P66522akt = "https://odp.met.hu/climate/observations_hungary/daily/recent/HABP_1D_66522_akt.zip"
 )
 

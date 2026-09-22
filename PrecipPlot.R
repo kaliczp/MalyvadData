@@ -16,6 +16,8 @@ for(PrecipObject in PrecipObjects$StationData) {
              xlab = "", ylab = "Csapadék [mm/nap]",
              ylim = c(0,100)
              )
+    DateInterval <- paste(c(index(actual.xts)[1], tail(index(actual.xts),1)), collapse = " - ")
+    mtext(DateInterval, line = 1, at = as.Date("2026-09-01"), adj = 1)
     ## Napi húsz max
     MaxHelye <- order(as.numeric(actual.xts), decreasing = TRUE, na.last = NA)[1:20]
     ## Az öt max kiválogatása

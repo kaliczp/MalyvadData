@@ -1,10 +1,18 @@
-PrecipObjects <- ls(patt = "P*xts")
+PrecipObjectsAkt <- ls(patt = "P[0-9]")
+PrecipObjects <- data.frame(
+    StationData = c("P66522.xts", "P66523.xts", "P67113.xts", "P67203.xts", "P67207.xts"
+                    ),
+    StationName = c("Békéscsaba repülőtér", "Békéscsaba VI. kerület", "Elek", "Gyulavári", "Gyula Máriafalva")
+)
+
 
 pdf(width = 14)
 par(xaxs = "i", yaxs = "i", las = 1, lend = 1)
-for(PrecipObject in PrecipObjects) {
+for(PrecipObject in PrecipObjects$StationData) {
     actual.xts <- get(PrecipObject)
-    plot.zoo(actual.xts, type = "h", main = sub(".xts", "", PrecipObject),
+    actualStation <- PrecipObjects[PrecipObjects$StationData == PrecipObject,
+                                   "StationName"]
+    plot.zoo(actual.xts, type = "h", main = actualStation,
              xlab = "", ylab = "Csapadék [mm/nap]",
              ylim = c(0,100)
              )

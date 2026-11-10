@@ -25,7 +25,7 @@ HydYearUntilNow <- function(x, untilday = format(Sys.Date(), "%m-%d")) {
 
 ### Hidrológiai évre
 ## Teljes hidrológiai évre
-annual_hydro <- HydYearUntilNow(AllPrec.xts["2014/",c("P66522.xts", "P67113.xts", "P67207.xts")], "10-31")
+annual_hydro <- HydYearUntilNow(AllPrec.xts["2014/",c("P66522.xts", "P67113.xts", "P67207.xts")], untilday = "10-31")
 ## Aug 31-ig a haviakkal
 annual_hydro <- HydYearUntilNow(AllPrec.xts, "08-31")
 ## Máig a folyamatosakkal

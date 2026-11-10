@@ -41,6 +41,9 @@ for (zipfile in zipfiles) {
 
 ## Adathiány kezelése
 P67113.xts[P67113.xts < -990] <- NA
+P66613.xts[P66613.xts < -990] <- NA
+
+
 
 AllPrec.xts <- merge(P66522.xts, P66523.xts, P67113.xts, P67203.xts, P67207.xts)
 

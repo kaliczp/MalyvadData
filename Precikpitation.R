@@ -45,8 +45,8 @@ P66613.xts[P66613.xts < -990] <- NA
 
 
 
-AllPrec.xts <- merge(P66522.xts[, "rau"], P66523.xts, P67113.xts[,"rau"], P67203.xts, P67207.xts[,"rau"], P66613.xts[,"rau"])
-names(AllPrec.xts) <- c("P66522.xts", "P66523.xts", "P67113.xts", "P67203.xts", "P67207.xts", "P66613.xts")
+AllPrec.xts <- merge(P66522.xts[, "rau"], P66523.xts, P66613.xts[,"rau"], P67113.xts[,"rau"], P67203.xts, P67207.xts[,"rau"])
+names(AllPrec.xts) <- c("P66522.xts", "P66523.xts", "P66613.xts", "P67113.xts", "P67203.xts", "P67207.xts")
 
 AllPrec.df <- data.frame(
     time = index(AllPrec.xts),

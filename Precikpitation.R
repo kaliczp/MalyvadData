@@ -44,9 +44,11 @@ P67113.xts[P67113.xts < -990] <- NA
 P66613.xts[P66613.xts < -990] <- NA
 
 
-
+## Order and name by station ID
 AllPrec.xts <- merge(P66522.xts[, "rau"], P66523.xts, P66613.xts[,"rau"], P67113.xts[,"rau"], P67203.xts, P67207.xts[,"rau"])
 names(AllPrec.xts) <- c("P66522.xts", "P66523.xts", "P66613.xts", "P67113.xts", "P67203.xts", "P67207.xts")
+## Station names
+names(AllPrec.xts) <- c("Békéscsaba repülőtér", "Békéscsaba VI. kerület", "Sarkad Malomfok", "Elek", "Gyulavári", "Gyula Máriafalva")
 
 AllPrec.df <- data.frame(
     time = index(AllPrec.xts),

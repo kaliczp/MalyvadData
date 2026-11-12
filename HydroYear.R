@@ -42,8 +42,13 @@ dev.off()
 
 ## Két adatsor egymáson ábrázolása
 pdf(width = 14)
+if(names(AllPrec.xts)[1] == "P66522.xts") {
 annual_hydro <- HydYearUntilNow(AllPrec.xts["2014/2026-10-31",c("P66522.xts", "P67113.xts", "P67207.xts","P66613.xts")], "10-31")
 winterseason_hydro <- HydYearUntilNow(AllPrec.xts["2014/2026-10-31",c("P66522.xts", "P67113.xts", "P67207.xts", "P66613.xts")], "04-30")
+} else {
+    annual_hydro <- HydYearUntilNow(AllPrec.xts["2014/2026-10-31",c("Békéscsaba repülőtér", "Sarkad Malomfok", "Elek", "Gyula Máriafalva")], "10-31")
+    winterseason_hydro <- HydYearUntilNow(AllPrec.xts["2014/2026-10-31",c("Békéscsaba repülőtér", "Sarkad Malomfok", "Elek", "Gyula Máriafalva")], "04-30")
+}
 for(actCol in colnames(annual_hydro[-1])) {
     Actual <- annual_hydro[,actCol]
     barplot(zoo(Actual, annual_hydro[,"HY"]),

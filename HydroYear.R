@@ -31,6 +31,10 @@ annual_hydro <- HydYearUntilNow(AllPrec.xts, "08-31")
 ## Máig a folyamatosakkal
 annual_hydro <- HydYearUntilNow(AllPrec.xts["2014/",c("P66522.xts", "P67113.xts", "P67207.xts")])
 
+## A leghosszabb Gyulavári
+annual_hydro <- HydYearUntilNow(AllPrec.xts[,"Gyulavári"], NULL)
+
+
 ## Egy adatsor ábrázolása
 pdf(width = 14)
 for(actCol in colnames(annual_hydro[-1])) {

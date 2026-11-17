@@ -1,6 +1,9 @@
-zipfilenames <- c(HistCsap = "r_h_Szeged_18702025.csv.zip",
-                  HistTemp = "t_h_Szeged_18702025.csv.zip",
-                  Akt = " HABP_1D_58116_akt.zip"
+MStation <- "Szeged"
+MStationNum <- 58116
+
+zipfilenames <- c(HistCsap = paste0("r_h_", MStation, "_18702025.csv.zip"),
+                  HistTemp = paste0("t_h_", MStation, "_18702025.csv.zip"),
+                  Akt = paste0("HABP_1D_", MStationNum, "_akt.zip")
                   )
 
 ## Common URLs

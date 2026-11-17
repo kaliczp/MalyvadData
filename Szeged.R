@@ -11,15 +11,23 @@ HistURL <- "https://odp.met.hu/climate/homogenized_data/station_data_series/"
 HistURLMid <- c(Prec = "from_1870/precipitation_sum/", Temp <- "from_1870/precipitation_sum/")
 AktURL <- "https://odp.met.hu/climate/observations_hungary/daily/recent/"
 
-urls <- paste0(HistCsap = paste0(HistURL, HistURLMid["Prec"], zipfilenames["HistCsap"])
-urls <- c(urls, paste0(HistCsap = paste0(HistURL, HistURLMid["Prec"], zipfilenames["HistCsap"]))
-urls <- c(urls, Akt = "https://odp.met.hu/climate/observations_hungary/daily_rain/recent/HABP_1RD_13713_akt.zip")
-zipfilename <- paste0(names(urls)[urlnr], ".zip")
+urls <- paste0(paste0(HistURL, HistURLMid["Prec"],
+                      zipfilenames["HistCsap"]))
+urls <- c(urls, paste0(paste0(HistURL, HistURLMid["Prec"],
+                              zipfilenames["HistCsap"])))
+urls <- c(urls, paste0("https://odp.met.hu/climate/observations_hungary/daily/recent/HABP_1D_",
+                       MStationNum,
+                       "_akt.zip"))
+names(urls) <- c("HistCsap", "HistTemp", "Akt")
+
 ## If not downloaded
 if(!any(dir(patt="zip") == zipfilenames["HistCsap"])) {
     download.file(urls["HistCsap"], zipfilename, mode = "wb")
 }
-if(!any(dir(patt="zip") == "58116")) {
+if(!any(dir(patt="zip") == zipfilenames["HistTemp"])) {
+    download.file(urls["HistTemp"], zipfilename, mode = "wb")
+}
+if(!any(dir(patt="zip") == zipfilenames["Akt"])) {
     download.file(urls["Akt"], zipfilename, mode = "wb")
 }
 

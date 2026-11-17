@@ -31,13 +31,20 @@ if(!any(dir(patt="zip") == zipfilenames["Akt"])) {
     download.file(urls["Akt"], zipfilename, mode = "wb")
 }
 
+for(nrzipfilename in 1:length(zipfilenames)) {
+    zipfilename <- zipfilenames[nrzipfilename]
 csvfile <- unzip(zipfilename, list = TRUE)$Name
 unzip(zipfilename, exdir = tempdir())
 adat <- read.table(file.path(tempdir(), csvfile), sep = ";", head = TRUE)
-csvfile <- unzip(zipfilename, list = TRUE)$Name
-unzip(zipfilename, exdir = tempdir())
-adat_akt <- read.table(file.path(tempdir(), csvfile), sep = ";", head = TRUE)
-finalobjectname <- paste0("P", adat[1, "StationNumber"], ".xts")
-assign(finalobjectname, xts(c(adat$r,adat_akt$r) ,as.Date(as.character(c(adat$Time,adat_akt$Time)), format = "%Y%m%d")))
+    finalobjectname <- paste0(MStation, names(zipfilenames)[nrzipfilename], ".xts")
+    if(nrzipfilename < 3) {
+        OnlyData <- adat[, -1]
+        OnlyData <- OnlyData[, -ncol(OnlyData)]
+    } else {
+        OnlyData <- adat[, c("rau", "t")]
+    }
+    assign(finalobjectname, xts(OnlyData, as.Date(as.character(adat$Time), format = "%Y%m%d")))
+}
+
 annual_hydro <- HydYearUntilNow(P.xts, "10-31")
 barplot(zoo(annual_hydro$V1, annual_hydro[,"HY"]), main = "Sopron", col = "lightblue", xaxs = "i")
